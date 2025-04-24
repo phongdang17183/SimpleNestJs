@@ -1,13 +1,15 @@
 name: CD to Render
 
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: ['NestJs CI']
+    types:
+      - completed
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Trigger Deploy on Render
         run: |
