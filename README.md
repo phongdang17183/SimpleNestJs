@@ -23,7 +23,7 @@
 
 ## Description
 
-This is simple project using [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository, with simple deploy on Render.
+This is simple project using [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository, with simple deploy on Render using CI/CD.
 
 ## Project setup
 
