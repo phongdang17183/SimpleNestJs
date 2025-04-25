@@ -9,7 +9,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      process.env.NODE_ENV === 'production' ? undefined : 'etc/secrets/.env',
+      envFilePath: 'etc/secrets/.env',
+      ignoreEnvFile: process.env.NODE_ENV === 'production',
       isGlobal: true,
     }),
     MongooseModule.forRootAsync({
