@@ -38,7 +38,7 @@ describe('UserController', () => {
     const dto: CreateUserDto = { name: 'Test', email: 'test@example.com' };
     const spy = jest.spyOn(userService, 'create');
     await controller.create(dto);
-    expect(spy).toHaveBeenCalledWith(dto.name, dto.email);
+    expect(spy).toHaveBeenCalledWith(dto);
   });
 
   it('should return all users from userService.findAll', async () => {

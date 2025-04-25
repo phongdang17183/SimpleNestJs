@@ -9,8 +9,10 @@ async function bootstrap() {
 
   // Cấu hình Swagger
   const config = new DocumentBuilder()
-    .setTitle('User API')
-    .setDescription('The user API description')
+    .setTitle('NestJs API')
+    .setDescription('Simple NestJs API with Swagger')
+    .addTag('Devices')
+    .addTag('Users')
     .setVersion('1.0')
     .build();
 
