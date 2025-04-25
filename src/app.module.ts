@@ -9,6 +9,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      envFilePath: 'etc/secrets/.env',
       isGlobal: true,
     }),
     MongooseModule.forRootAsync({
