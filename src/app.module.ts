@@ -5,13 +5,17 @@ import { AppService } from './app.service';
 import { UserModule } from './users/user.module';
 import { DeviceModule } from './devices/device.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { log } from 'console';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: 'etc/secrets/.env',
+      ignoreEnvFile: process.env.NODE_ENV === 'production',
       isGlobal: true,
     }),
+  
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -21,6 +25,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
     UserModule,
     DeviceModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

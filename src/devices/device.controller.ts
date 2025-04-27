@@ -6,12 +6,15 @@ import {
   Param,
   Body,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { DeviceService } from './device.service';
 import { CreateDeviceDto } from './dto/create-device.dto';
 import { UpdateDeviceDto } from './dto/update-device.dto';
+import { JwtAuthGuard } from 'src/auth/Guard/authGuard';
 
+@UseGuards(JwtAuthGuard)
 @ApiTags('Devices')
 @Controller('devices')
 export class DeviceController {
