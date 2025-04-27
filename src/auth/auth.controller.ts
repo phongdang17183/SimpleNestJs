@@ -9,7 +9,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
-  @ApiOperation({ summary: 'Admin login' })
+  @ApiOperation({ summary: 'Đăng nhập để lấy access token' })
   login(@Body() body: LoginDto) {
     return this.authService.login(body);
   }

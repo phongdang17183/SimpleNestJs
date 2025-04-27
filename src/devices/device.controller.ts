@@ -18,8 +18,11 @@ import { DeviceService } from './device.service';
 import { CreateDeviceDto } from './dto/create-device.dto';
 import { UpdateDeviceDto } from './dto/update-device.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../auth/role/roles.guard';
+import { Roles } from '../auth/role/roles.decorator';
 
 @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Devices')
 @ApiBearerAuth()
 @Controller('devices')
@@ -28,6 +31,7 @@ export class DeviceController {
   constructor(private readonly deviceService: DeviceService) {}
 
   @Post()
+  @Roles('admin')
   @ApiOperation({
     summary: 'Tạo thiết bị mới',
     description: 'Tạo một thiết bị mới gắn với userId.',
@@ -37,6 +41,7 @@ export class DeviceController {
   }
 
   @Get()
+  @Roles('admin', 'client')
   @ApiOperation({
     summary: 'Xem tất cả thiết bị',
     description: 'Xem tất cả thiết bị hiện có trong databasedatabase.',
@@ -46,6 +51,7 @@ export class DeviceController {
   }
 
   @Put(':id')
+  @Roles('admin')
   @ApiOperation({
     summary: 'Cập nhật thiết bị',
     description: 'Cập nhật thiết bị với ID được chỉ định.',
@@ -56,6 +62,7 @@ export class DeviceController {
   }
 
   @Delete(':id')
+  @Roles('admin')
   @ApiOperation({
     summary: 'Xóa thiết bị',
     description: 'Xóa thiết bị với ID được chỉ định.',

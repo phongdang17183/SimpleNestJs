@@ -18,15 +18,18 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../auth/role/roles.guard';
+import { Roles } from '../auth/role/roles.decorator';
 
 @ApiTags('Users')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @Roles('admin')
   @ApiOperation({
     summary: 'Tạo người dùng mới',
     description: 'Tạo một người dùng mới.',
@@ -36,6 +39,7 @@ export class UserController {
   }
 
   @Get()
+  @Roles('admin', 'client')
   @ApiOperation({
     summary: 'Xem tất cả người dùng',
     description: 'Xem tất cả người dùng hiện có trong database.',
@@ -45,6 +49,7 @@ export class UserController {
   }
 
   @Put(':id')
+  @Roles('admin')
   @ApiOperation({
     summary: 'Cập nhật người dùng',
     description: 'Cập nhật người dùng với ID được chỉ định.',
@@ -55,6 +60,7 @@ export class UserController {
   }
 
   @Delete(':id')
+  @Roles('admin')
   @ApiOperation({
     summary: 'Xóa người dùng',
     description: 'Xóa người dùng với ID được chỉ định.',

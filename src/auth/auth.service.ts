@@ -13,19 +13,26 @@ export class AuthService {
   login(body: LoginDto) {
     const adminEmail = process.env.ADMIN_EMAIL;
     const adminPassword = process.env.ADMIN_PASSWORD;
+    const clientEmail = process.env.CLIENT_EMAIL;
+    const clientPassword = process.env.CLIENT_PASSWORD;
     const jwtSecret = process.env.JWT_SECRET;
 
-    if (body.email !== adminEmail || body.password !== adminPassword) {
-      throw new UnauthorizedException('Invalid credentials');
+    if (body.email === adminEmail && body.password === adminPassword) {
+      const payload = { sub: 'admin', email: body.email, role: 'admin' };
+      const access_token = this.jwtService.sign(payload, {
+        secret: jwtSecret,
+      });
+      return { access_token };
     }
 
-    const payload = { sub: 'admin', email: body.email };
-    const token = this.jwtService.sign(payload, {
-      secret: jwtSecret,
-    });
+    if (body.email === clientEmail && body.password === clientPassword) {
+      const payload = { sub: 'client', email: body.email, role: 'client' };
+      const access_token = this.jwtService.sign(payload, {
+        secret: jwtSecret,
+      });
+      return { access_token };
+    }
 
-    return {
-      access_token: token,
-    };
+    throw new UnauthorizedException('Invalid credentials');
   }
 }
