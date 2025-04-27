@@ -11,8 +11,9 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('NestJs API')
     .setDescription(
-      'Simple NestJs API with Swagger, in this project we have 2 entity: User and Device',
+      'Simple NestJs API với Swagger, trong project này sẽ có 2 entity: User và Device, ngoài ra còn có Auth cho phép đăng nhập và lấy token để sử dụng các API khác. tài khoản để đăng nhâp mặc đinh là admin, với email và password ở phần ví dụ bên dưới.',
     )
+    .addBearerAuth()
     .addTag('Devices')
     .addTag('Users')
     .setVersion('1.0')
