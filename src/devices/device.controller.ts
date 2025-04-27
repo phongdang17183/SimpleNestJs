@@ -19,6 +19,7 @@ import { CreateDeviceDto } from './dto/create-device.dto';
 import { UpdateDeviceDto } from './dto/update-device.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @ApiTags('Devices')
 @ApiBearerAuth()
 @Controller('devices')
