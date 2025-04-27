@@ -6,14 +6,24 @@ import {
   Param,
   Body,
   Put,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { DeviceService } from './device.service';
 import { CreateDeviceDto } from './dto/create-device.dto';
 import { UpdateDeviceDto } from './dto/update-device.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @ApiTags('Devices')
+@ApiBearerAuth()
 @Controller('devices')
+@UseGuards(JwtAuthGuard)
 export class DeviceController {
   constructor(private readonly deviceService: DeviceService) {}
 
