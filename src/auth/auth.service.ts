@@ -11,9 +11,9 @@ export class AuthService {
   ) {}
 
   login(body: LoginDto) {
-    const adminEmail = this.configService.get<string>('ADMIN_EMAIL');
-    const adminPassword = this.configService.get<string>('ADMIN_PASSWORD');
-    const jwtSecret = this.configService.get<string>('JWT_SECRET');
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const adminPassword = process.env.ADMIN_PASSWORD;
+    const jwtSecret = process.env.JWT_SECRET;
 
     if (body.email !== adminEmail || body.password !== adminPassword) {
       throw new UnauthorizedException('Invalid credentials');
